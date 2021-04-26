@@ -5,26 +5,26 @@ const Viewers = (props) => {
     <Container>
       <Wrap>
         <img src="/images/viewers-disney.png" alt="" />
-        <video autoPlay={true} loop={true} playsInline={true}>
-          <source src="/videos/1564674844-disney.mp4" type="video.mp4" />
+        <video autoPlay={true} loop={true} playsInline={true} muted>
+          <source src="/videos/1564674844-disney.mp4" type="video/mp4" />
         </video>
       </Wrap>
       <Wrap>
         <img src="/images/viewers-pixar.png" alt="" />
-        <video autoPlay={true} loop={true} playsInline={true}>
-          <source src="/videos/1564676714-pixar.mp4" type="video.mp4" />
+        <video autoPlay={true} loop={true} playsInline={true} muted>
+          <source src="/videos/1564676714-pixar.mp4" type="video/mp4" />
         </video>
       </Wrap>
       <Wrap>
         <img src="/images/viewers-marvel.png" alt="" />
-        <video autoPlay={true} loop={true} playsInline={true}>
-          <source src="/videos/1564676115-marvel.mp4" type="video.mp4" />
+        <video autoPlay={true} loop={true} playsInline={true} muted>
+          <source src="/videos/1564676115-marvel.mp4" type="video/mp4" />
         </video>
       </Wrap>
       <Wrap>
         <img src="/images/viewers-starwars.png" alt="" />
-        <video autoPlay={true} loop={true} playsInline={true}>
-          <source src="/videos/1608229455-star-wars.mp4" type="video.mp4" />
+        <video autoPlay={true} loop={true} playsInline={true} muted>
+          <source src="/videos/1608229455-star-wars.mp4" type="video/mp4" />
         </video>
       </Wrap>
       <Wrap>
@@ -32,7 +32,7 @@ const Viewers = (props) => {
         <video autoPlay={true} loop={true} playsInline={true}>
           <source
             src="/videos/1564676296-national-geographic.mp4"
-            type="video.mp4"
+            type="video/mp4"
           />
         </video>
       </Wrap>
@@ -80,6 +80,18 @@ const Wrap = styled.div`
     height: 100%;
     position: absolute;
     top: 0;
+    opacity: 0;
+    z-index: 0;
+  }
+  &:hover {
+    box-shadow: rgb(0 0 0 / 80%) 0px 40px 58px -16px,
+      rgb(0 0 0 / 72%) 0px 30px 22px -10px;
+
+    transform: scale(1.05);
+
+    video {
+      opacity: 1;
+    }
   }
 `;
 
