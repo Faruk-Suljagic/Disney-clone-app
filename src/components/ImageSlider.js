@@ -21,13 +21,11 @@ const ImageSlider = (props) => {
           </a>
         </Wrap>
         <Wrap>
-          href='/#'
           <a href="/#">
             <img src="/images/slider-scale.jpg" alt="slider" />
           </a>
         </Wrap>
         <Wrap>
-          href='/#'
           <a href="/#">
             <img src="/images/slider-badag.jpg" alt="slider" />
           </a>

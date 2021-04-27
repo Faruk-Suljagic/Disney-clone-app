@@ -1,64 +1,45 @@
+import { useSelector } from "react-redux";
+import { selectRecommend } from "../features/movie/movieSlice";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
-import React from "react";
 
-const Recommend = (props) => {
+const Recommends = (props) => {
+  const movies = useSelector(selectRecommend);
+  console.log(movies, ":🚨");
+
   let settings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 600,
     slideToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
   };
-  return (
-    <React.Fragment>
-      <div className="recommended">
-        <h3>Recommended for You!</h3>
-      </div>
-      <Container>
-        <Content>
-          <Carousel {...settings}>
-            <Wrap>
-              <Link to="/">
-                <img src="images/inside-out.jpg" alt="" />
-              </Link>
-            </Wrap>
-            <Wrap>
-              <Link to="/">
-                <img src="images/cars-movie.jpg" alt="" />
-              </Link>
-            </Wrap>
-            <Wrap>
-              <Link to="/">
-                <img src="images/wall-e.jpg" alt="" />
-              </Link>
-            </Wrap>
 
-            <Wrap>
-              <Link to="/">
-                <img src="images/beauty.jpg" alt="" />
-              </Link>
-            </Wrap>
-            <Wrap>
-              <Link to="/">
-                <img src="images/turbo.jpeg" alt="" />
-              </Link>
-            </Wrap>
-            <Wrap>
-              <Link to="/">
-                <img src="images/up.jpeg" alt="" />
-              </Link>
-            </Wrap>
-          </Carousel>
-        </Content>
-      </Container>
-    </React.Fragment>
+  return (
+    <Container>
+      <h3>Recommended for You!</h3>
+
+      <Content>
+        <Carousel {...settings}>
+          {movies &&
+            movies.map((movie, key) => (
+              <Wrap style={{ margin: "0px 5px" }} key={key}>
+                {movie.id}
+                <Link to={`/detail/` + movie.id}>
+                  <img src={movie.cardImg} alt={movie.title} />
+                </Link>
+              </Wrap>
+            ))}
+        </Carousel>
+      </Content>
+    </Container>
   );
 };
+
 const Carousel = styled(Slider)`
   outline: none;
   margin-top: 20px;
@@ -102,6 +83,7 @@ const Carousel = styled(Slider)`
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   width: 100%;
   justify-content: center;
   padding: 0 0 26px;
@@ -158,4 +140,4 @@ const Wrap = styled.div`
     border-color: rgba(249, 249, 249, 0.8);
   }
 `;
-export default Recommend;
+export default Recommends;

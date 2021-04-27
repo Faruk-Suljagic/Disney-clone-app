@@ -27,4 +27,4 @@ export const selectNewDisney = (state) => state.movie.newDisney;
 export const selectOriginal = (state) => state.movie.original;
 export const selectTrending = (state) => state.movie.trending;
 
-export default movieSlice;
+export default movieSlice.reducer;

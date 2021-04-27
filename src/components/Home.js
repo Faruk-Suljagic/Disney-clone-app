@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import ImageSlider from "./ImageSlider";
-import Viewers from "./Viewers";
-import Recommend from "./Recommend";
 import NewDisney from "./NewDisney";
 import Originals from "./Originals";
+import Recommends from "./Recommends";
 import Trending from "./Trending";
+import Viewers from "./Viewers";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { db } from "../firebase";
@@ -20,42 +20,43 @@ const Home = (props) => {
   let trending = [];
 
   useEffect(() => {
+    console.log("hello");
     db.collection("movies").onSnapshot((snapshot) => {
       snapshot.docs.map((doc) => {
         switch (doc.data().type) {
           case "recommend":
-            recommends.push(...recommends, { id: doc.id, ...doc.data() });
+            recommends = [...recommends, { id: doc.id, ...doc.data() }];
             break;
 
           case "new":
-            newDisneys.push(...newDisneys, { id: doc.id, ...doc.data() });
+            newDisneys = [...newDisneys, { id: doc.id, ...doc.data() }];
+            break;
+
+          case "original":
+            originals = [...originals, { id: doc.id, ...doc.data() }];
             break;
 
           case "trending":
-            trending.push(trending, { id: doc.id, ...doc.data() });
-            break;
-
-          case "originals":
-            originals.push(originals, { id: doc.id, ...doc.data() });
+            trending = [...trending, { id: doc.id, ...doc.data() }];
             break;
         }
       });
+      dispatch(
+        setMovies({
+          recommend: recommends,
+          newDisney: newDisneys,
+          original: originals,
+          trending: trending,
+        })
+      );
     });
-    dispatch(
-      setMovies({
-        recommend: recommends,
-        newDisneys: newDisneys,
-        original: originals,
-        trending: trending,
-      })
-    );
   }, [userName]);
 
   return (
     <Container>
       <ImageSlider />
       <Viewers />
-      <Recommend />
+      <Recommends />
       <NewDisney />
       <Originals />
       <Trending />
@@ -69,7 +70,8 @@ const Container = styled.main`
   overflow-x: hidden;
   display: block;
   top: 72px;
-  padding: 0 calc(2.5vw + 5px);
+  padding: 0 calc(3.5vw + 5px);
+
   &:after {
     background: url("/images/home-background.png") center center / cover
       no-repeat fixed;
